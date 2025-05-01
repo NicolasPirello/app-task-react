@@ -19,10 +19,12 @@ export function TaskContextProvider(props) {
   }, []);
 
   function createTask(task) {
+    const id = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 0;
+    
     setTasks([
       ...tasks,
       {
-        id: tasks.length,
+        id,
         title: task.title,
         description: task.description,
       },
@@ -37,9 +39,9 @@ export function TaskContextProvider(props) {
   return (
     <TaskContext.Provider
       value={{
-        tasks: tasks,
-        createTask: createTask,
-        deleteTask: deleteTask,
+        tasks,
+        createTask,
+        deleteTask,
       }}
     >
       {props.children}

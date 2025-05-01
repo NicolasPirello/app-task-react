@@ -1,22 +1,30 @@
-import { TaskContext } from "../context/TaskContext"
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
 
-
-function TaskCard ({ task }) {
-
-  const { deleteTask } = useContext(TaskContext)
+function TaskCard({ task }) {
+  const { deleteTask } = useContext(TaskContext);
 
   return (
-    <>
-        <div className="taskCard-container">
-            <h2>{task.title}</h2>
-            <p>{task.description}</p>
-            {/* Ejecutar una funcion flecha dentro de un evento es porque quiero pasarle un parametro, pero si no lo hago asi la funcion se ejecuta al cargar la pagina, es por eso que se ejecuta una funcion anonima que si se le da click va a ejecutar la funcion que estamos buscando ejecutar desde un principio. */}
-            <button className="taskCard-container__btn" onClick={() => deleteTask(task.id)}>Eliminar</button>
-        </div>
-    </>
-  )
+    <div className="task-card">
+      <div className="task-content">
+        <h3 className="task-title">
+          <i className="fas fa-check-circle task-icon"></i> {task.title}
+        </h3>
+        <p className="task-description">
+          {task.description || "Sin descripción"}
+        </p>
+      </div>
+      <div className="task-actions">
+        <button 
+          className="delete-btn" 
+          onClick={() => deleteTask(task.id)}
+          aria-label="Eliminar tarea"
+        >
+          <i className="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
+  );
 }
-
 
 export default TaskCard;
